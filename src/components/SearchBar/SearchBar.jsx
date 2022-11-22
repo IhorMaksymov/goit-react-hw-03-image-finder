@@ -1,13 +1,13 @@
 import { FaSearch } from 'react-icons/fa';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
-// import * as yup from 'yup';
+import * as yup from 'yup';
 
 import { Header, SearchForm, BtmForm, SearchField } from './SearchBarStyled';
 
-// const schema = yup.object().shape({
-//     imageName: yup.string().isRequired(),
-// })
+const schema = yup.object().shape({
+    imageName: yup.string(),
+})
 
 const SearchBar = ({ onSubmit }) => {
 
@@ -21,7 +21,7 @@ const SearchBar = ({ onSubmit }) => {
             <Formik
                 initialValues={{ imageName: '' }}
                 onSubmit={handleSubmit}
-                // validationSchema={schema}
+                validationSchema={schema}
             >
                 <SearchForm>
                     <BtmForm type="submit">

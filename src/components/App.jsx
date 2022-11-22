@@ -43,7 +43,6 @@ class App extends Component {
   }
 
   handleSubmitForm = ({ imageName }) => {
-    console.log(imageName)
     this.setState({
       imageName,
       page: 1,
@@ -52,8 +51,7 @@ class App extends Component {
   }
   
   render() {
-    console.log(this.state.arrayItems)
-    console.log(this.state.imageName)
+    
     const { arrayItems, loading, imageName } = this.state;
     return (
       <Box
