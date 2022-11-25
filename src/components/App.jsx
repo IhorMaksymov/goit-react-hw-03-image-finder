@@ -1,7 +1,9 @@
 import { Component } from "react";
 
 import { Box } from "./Box/Box";
-import * as API from './Services/Services';
+import { GlobalStyle } from "./GlobalStyle";
+// import * as API from './Services/Services';
+import getMaterial from "./Services/Services";
 import SearchBar from "./SearchBar";
 import ItemGallery from "./ImageGallery";
 import Loader from "./Loader";
@@ -12,7 +14,6 @@ class App extends Component {
 
   state = {
     arrayItems: [],
-    showModal: false,
     loading: false,
     imageName: '',
     page: 1,
@@ -25,7 +26,7 @@ class App extends Component {
     if (prevState.imageName !== imageName || prevState.page !== page) {
       try {
         this.setState({ loading: true });
-        const array = await API.getMaterial(imageName, page);
+        const array = await getMaterial(imageName, page);
         this.setState((prevState) => ({
           arrayItems: [...prevState.arrayItems, ...array],
           loading: false
@@ -68,6 +69,7 @@ class App extends Component {
             {loading ? <Loader /> : <Button loadMore={this.loadMoreBtn}/>}
           </>
         )}
+        <GlobalStyle />
       </Box>
     )
   }
