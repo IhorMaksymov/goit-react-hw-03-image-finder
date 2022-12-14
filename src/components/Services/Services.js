@@ -15,7 +15,6 @@ const getMaterial = async (name, page, perPage) => {
     })
 
     const response = await axios.get(`${API_URL}?${options}`);
-    console.log(response.data)
     return response.data;
 }
 
