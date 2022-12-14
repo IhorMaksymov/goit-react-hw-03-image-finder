@@ -18,6 +18,6 @@ export const ModalContent = styled.div`
     max-width: 800px;
     width: 100%;
     padding: ${p => p.theme.space[4]}px;
-    background-color: #ffffff;
+    background-color: ${p => p.theme.colors.baseWhite};
     border-radius: ${p => p.theme.radii.normal};
 `;

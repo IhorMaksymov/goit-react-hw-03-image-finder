@@ -2,7 +2,6 @@ import { Component } from "react";
 
 import { Box } from "./Box/Box";
 import { GlobalStyle } from "./GlobalStyle";
-// import * as API from './Services/Services';
 import getMaterial from "./Services/Services";
 import SearchBar from "./SearchBar";
 import ItemGallery from "./ImageGallery";
@@ -22,14 +21,16 @@ class App extends Component {
   async componentDidUpdate(_, prevState) {
 
     const { imageName, page } = this.state;
+    const perPage = 12;
     
     if (prevState.imageName !== imageName || prevState.page !== page) {
       try {
         this.setState({ loading: true });
-        const array = await getMaterial(imageName, page);
+        const { hits, totalHits } = await getMaterial(imageName, page, perPage);
         this.setState((prevState) => ({
-          arrayItems: [...prevState.arrayItems, ...array],
-          loading: false
+          arrayItems: [...prevState.arrayItems, ...hits],
+          totalPage: totalHits,
+          loading: false,
         }))
       } catch (error) {
         console.log(error)
@@ -51,9 +52,11 @@ class App extends Component {
     })
   }
   
+
   render() {
     
-    const { arrayItems, loading, imageName } = this.state;
+    const { arrayItems, totalPage, loading, imageName } = this.state;
+  
     return (
       <Box
         display='flex'
@@ -66,7 +69,10 @@ class App extends Component {
         {imageName && (
           <>
             <ItemGallery items={arrayItems} />
-            {loading ? <Loader /> : <Button loadMore={this.loadMoreBtn}/>}
+            {totalPage >= arrayItems.length && (
+              <Button loadMore={this.loadMoreBtn}/>
+            ) }
+            {loading && <Loader />}
           </>
         )}
         <GlobalStyle />
