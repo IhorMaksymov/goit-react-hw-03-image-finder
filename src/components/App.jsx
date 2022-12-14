@@ -69,8 +69,8 @@ class App extends Component {
         {imageName && (
           <>
             <ItemGallery items={arrayItems} />
-            {totalPage >= arrayItems.length && (
-              <Button loadMore={this.loadMoreBtn}/>
+            {totalPage !== arrayItems.length && (
+              <Button type='button' loadMore={this.loadMoreBtn}/>
             ) }
             {loading && <Loader />}
           </>
